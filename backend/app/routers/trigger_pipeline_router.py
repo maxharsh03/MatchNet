@@ -53,7 +53,6 @@ def clean_nan_values(stat: dict):
         for k, v in stat.items()
     }
 
-@pipeline_router.post("/")
 async def trigger_pipeline():
     """
     This route is triggered hourly from the frontend.
@@ -330,3 +329,9 @@ async def trigger_pipeline():
 
     except Exception as e:
         return {"error": str(e)}
+
+def main():
+    trigger_pipeline()
+
+if __name__ == "__main__":
+    main()
