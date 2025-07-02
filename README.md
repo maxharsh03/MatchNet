@@ -80,7 +80,7 @@ Where:
 
 ---
 
-## 🖥Frontend
+## Frontend
 
 The frontend is built in **React**, rendering components such as:
 - Match cards
