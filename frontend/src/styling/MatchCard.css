@@ -1,0 +1,323 @@
+.match-card {
+  background: rgba(32, 32, 36, 0.6);
+  border: 1px solid rgba(225, 225, 230, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+  color: var(--text-color);
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-family);
+  width: 100%;
+  max-width: 1100px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.match-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--highlight-color), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.match-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(77, 208, 225, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.match-card:hover::before {
+  opacity: 1;
+}
+
+/* Shared grid setup for all rows */
+.match-card-header,
+.match-card-row {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr repeat(7, 1fr); /* 9 columns */
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  padding: 10px 12px;
+  gap: 8px;
+}
+
+.match-card-header {
+  background: rgba(77, 208, 225, 0.1);
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 0.75rem;
+  border-bottom: 2px solid rgba(77, 208, 225, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.match-card-row {
+  background: transparent;
+  border-bottom: 1px solid rgba(225, 225, 230, 0.1);
+  transition: all 0.2s ease;
+}
+
+.match-card-row:hover {
+  background: rgba(77, 208, 225, 0.05);
+}
+
+.match-card-row:last-child {
+  border-bottom: none;
+}
+
+.player-name {
+  font-weight: 600;
+  font-size: 0.6rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 100%;
+  text-align: center;
+  justify-self: center;
+}
+
+.player-score {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--highlight-color);
+}
+
+.odds-cell {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  font-size: 0.875rem;
+}
+
+/* Status badges if you choose to add them */
+.status-live {
+  background-color: #d33;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.status-finished {
+  background-color: #666;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.status-other {
+  background-color: #08f;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .match-card-header,
+  .match-card-row {
+    font-size: 0.75rem;
+    grid-template-columns: 1fr 0.8fr repeat(7, 1fr);
+    padding: 8px;
+  }
+
+  .player-score {
+    font-size: 0.9rem;
+  }
+}
+
+.match-card-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: var(--bg-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.matches-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.matches-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: var(--text-color);
+  margin: 0 0 1rem 0;
+  background: linear-gradient(135deg, var(--text-color) 0%, var(--highlight-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.matches-subtitle {
+  font-size: 1.1rem;
+  color: rgba(225, 225, 230, 0.8);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.tournament-header {
+  color: var(--text-color);
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin: 2.5rem 0 1rem;
+  text-align: center;
+  background: linear-gradient(135deg, var(--text-color) 0%, var(--highlight-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding: 1rem;
+  position: relative;
+}
+
+.tournament-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--highlight-color), var(--hover-color));
+  border-radius: 2px;
+}
+
+.tournament-group {
+  width: 100%;
+  max-width: 1100px;
+}
+
+.filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 1100px;
+  min-height: 88px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-button {
+  background: transparent;
+  color: var(--text-color);
+  border: 2px solid rgba(225, 225, 230, 0.2);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.filter-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--highlight-color), var(--hover-color));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 6px;
+}
+
+.filter-button:hover {
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(77, 208, 225, 0.3);
+}
+
+.filter-button:hover::before {
+  opacity: 0.3;
+}
+
+.filter-button.active {
+  color: white;
+  border-color: var(--highlight-color);
+  box-shadow: 0 4px 12px rgba(77, 208, 225, 0.4);
+}
+
+.filter-button.active::before {
+  opacity: 0.5;
+}
+
+.filter-button span {
+  position: relative;
+  z-index: 1;
+}
+
+.date-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(32, 32, 36, 0.6);
+  border: 2px solid rgba(225, 225, 230, 0.2);
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  backdrop-filter: blur(20px);
+  transition: all 0.3s ease;
+}
+
+.date-picker:hover {
+  border-color: rgba(77, 208, 225, 0.4);
+  box-shadow: 0 4px 12px rgba(77, 208, 225, 0.2);
+}
+
+.date-picker label {
+  font-size: 1.2rem;
+  color: var(--highlight-color);
+  cursor: pointer;
+}
+
+.date-picker input[type="date"] {
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  min-width: 140px;
+}
+
+.date-picker input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+}
+
+.date-picker input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+.date-picker:focus-within {
+  border-color: var(--highlight-color);
+  box-shadow: 0 0 0 3px rgba(77, 208, 225, 0.2);
+}
