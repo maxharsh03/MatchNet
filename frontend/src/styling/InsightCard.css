@@ -1,0 +1,130 @@
+.insight-card {
+    display: flex;
+    background: rgba(32, 32, 36, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(225, 225, 230, 0.1);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 16px 0;
+    font-family: var(--font-family, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
+    color: var(--text-color, #e1e1e6);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.insight-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(77, 208, 225, 0.15);
+    border-color: rgba(77, 208, 225, 0.3);
+}
+
+.insight-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(77, 208, 225, 0.05) 0%, rgba(0, 188, 212, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.insight-card:hover::before {
+    opacity: 1;
+}
+
+.insight-date-time {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 24px;
+    border-right: 1px solid rgba(225, 225, 230, 0.1);
+    color: rgba(225, 225, 230, 0.8);
+    font-size: 0.875rem;
+    font-weight: 500;
+    gap: 4px;
+}
+
+.insight-date-time div {
+    padding: 2px 0;
+}
+
+.insight-player-info {
+    flex: 3;
+    padding-left: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--text-color, #e1e1e6);
+    font-size: 0.9rem;
+    gap: 8px;
+}
+
+.player-name {
+    font-weight: 600;
+    font-size: 1.125rem;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--text-color, #e1e1e6) 0%, var(--highlight-color, #4dd0e1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.insight-player-info > div:not(.player-name) {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 0.875rem;
+    color: rgba(225, 225, 230, 0.9);
+}
+
+.insight-player-info > div:not(.player-name):hover {
+    color: var(--highlight-color, #4dd0e1);
+    transition: color 0.2s ease;
+}
+
+@media (max-width: 768px) {
+    .insight-card {
+        flex-direction: column;
+        padding: 20px;
+        margin: 12px 0;
+    }
+    
+    .insight-date-time {
+        border-right: none;
+        border-bottom: 1px solid rgba(225, 225, 230, 0.1);
+        padding-right: 0;
+        padding-bottom: 16px;
+        margin-bottom: 16px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .insight-player-info {
+        padding-left: 0;
+        margin-bottom: 16px;
+    }
+    
+    .insight-player-info:last-child {
+        margin-bottom: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .insight-card {
+        transition: none;
+    }
+    
+    .insight-card:hover {
+        transform: none;
+    }
+    
+    .insight-card::before {
+        transition: none;
+    }
+}
+  

@@ -1,0 +1,30 @@
+/* Dark mode colors inspired by ocal.ai */
+:root {
+  --bg-color: #121214;
+  --nav-bg-color: #202024;
+  --text-color: #e1e1e6;
+  --highlight-color: #4dd0e1;
+  --hover-color: #00bcd4;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color: var(--hover-color);
+}
+
+.container {
+  padding: 1.5rem;
+}
