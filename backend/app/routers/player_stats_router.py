@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from db.mongodb import db
-from models.player_stats import PlayerStats
+from app.db.mongodb import db
+from app.models.player_stats import PlayerStats
 from bson import ObjectId
 
 player_stats_router = APIRouter()

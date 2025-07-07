@@ -5,7 +5,7 @@ from pathlib import Path
 from rapidfuzz import fuzz, process
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]  # Assumes this script is in `backend/scraping/` or similar
+PROJECT_ROOT = Path(__file__).resolve().parents[1]  # Assumes this script is in `backend/scraping/` or similar
 
 # Step 2: Load .env from root
 load_dotenv(dotenv_path=PROJECT_ROOT / ".env")

@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from db.mongodb import db
+from app.db.mongodb import db
 import subprocess
 import pandas as pd
 import os
@@ -22,7 +22,7 @@ pipeline_router = APIRouter()
 
 # Load .env from root (adjust path as needed)
 # Step 1: Dynamically determine the project root directory
-PROJECT_ROOT = Path(__file__).resolve().parents[3]  # Assumes this script is in `backend/scraping/` or similar
+PROJECT_ROOT = Path(__file__).resolve().parents[2]  # Assumes this script is in `backend/scraping/` or similar
 
 # Step 2: Load .env from root
 load_dotenv(dotenv_path=PROJECT_ROOT / ".env")
