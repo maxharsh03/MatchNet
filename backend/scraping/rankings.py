@@ -54,7 +54,7 @@ def get_atp_rankings():
 if __name__ == "__main__":
     rankings_df = get_atp_rankings()
 
-    PROJECT_ROOT = Path(__file__).resolve().parents[2]  # Assumes this script is in `backend/scraping/` or similar
+    PROJECT_ROOT = Path(__file__).resolve().parents[1]  # Assumes this script is in `backend/scraping/` or similar
 
     # Step 2: Load .env from root
     load_dotenv(dotenv_path=PROJECT_ROOT / ".env")

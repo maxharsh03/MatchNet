@@ -124,7 +124,7 @@ def scrape_flashscore_all():
         browser.close()
         df = pd.DataFrame(all_matches)
 
-        PROJECT_ROOT = Path(__file__).resolve().parents[2]  # Assumes this script is in `backend/scraping/` or similar
+        PROJECT_ROOT = Path(__file__).resolve().parents[1]  # Assumes this script is in `backend/scraping/` or similar
 
         # Step 2: Load .env from root
         load_dotenv(dotenv_path=PROJECT_ROOT / ".env")

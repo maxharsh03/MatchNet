@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from db.mongodb import db
-from models.insight import Insight
+from app.db.mongodb import db
+from app.models.insight import Insight
 from bson import ObjectId
 
 # Prediction Router

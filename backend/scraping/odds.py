@@ -238,7 +238,7 @@ async def main():
         combined_df = combined_df.sort_values(by=["match_date", "status_sort"]).drop(columns=["status_sort"])
 
         # Load project root
-        PROJECT_ROOT = Path(__file__).resolve().parents[2]  # Assumes this script is in `backend/scraping/` or similar
+        PROJECT_ROOT = Path(__file__).resolve().parents[1]  # Assumes this script is in `backend/scraping/` or similar
 
         # Step 2: Load .env from root
         load_dotenv(dotenv_path=PROJECT_ROOT / ".env")
