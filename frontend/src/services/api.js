@@ -1,10 +1,10 @@
 // base url for testing locally
-const BASE_URL = "http://localhost:8000/api"; // change to your backend base URL
+const BASE_URL = process.env.REACT_APP_API_URL
 
 // 🧠 GET: Player Stats (GET /player-stats)
 export async function getPlayerStats() {
   try {
-    const res = await fetch(`${BASE_URL}/player-stats/`);
+    const res = await fetch(`${BASE_URL}/api/player-stats/`);
     if (!res.ok) throw new Error("Failed to fetch player stats");
     return await res.json();
   } catch (err) {
@@ -16,7 +16,7 @@ export async function getPlayerStats() {
 // 🧠 GET: Matches (GET /matches)
 export async function getMatches() {
   try {
-    const res = await fetch(`${BASE_URL}/matches/`);
+    const res = await fetch(`${BASE_URL}/api/matches/`);
     if (!res.ok) throw new Error("Failed to fetch matches");
     return await res.json();
   } catch (err) {
@@ -28,7 +28,7 @@ export async function getMatches() {
 // 🧠 GET: Insights (GET /insights)
 export async function getInsights() {
   try {
-    const res = await fetch(`${BASE_URL}/insights/`);
+    const res = await fetch(`${BASE_URL}/api/insights/`);
     if (!res.ok) throw new Error("Failed to fetch insight");
     return await res.json();
   } catch (err) {
@@ -42,7 +42,7 @@ export async function getInsights() {
 // Trigger pipeline (POST /trigger-pipeline)
 export async function triggerPipeline() {
   try {
-    const response = await fetch(`${BASE_URL}/trigger-pipeline/`, {
+    const response = await fetch(`${BASE_URL}/api/trigger-pipeline/`, {
       method: "POST",
     });
 
