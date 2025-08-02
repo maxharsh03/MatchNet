@@ -27,10 +27,12 @@ export default function Matches() {
   const showDatePicker = ["ALL", "SCHEDULED", "FINISHED"].includes(filter);
 
   if (showDatePicker && selectedDate) {
-    const dateStr = selectedDate.toISOString().split('T')[0];
-    filteredMatches = filteredMatches.filter(
-      (m) => m.date === dateStr
-    );
+    const selectedDateStr = selectedDate.toISOString().split('T')[0];
+    filteredMatches = filteredMatches.filter((m) => {
+      if (!m.date) return false;
+      const matchDateStr = new Date(m.date).toISOString().split('T')[0];
+      return matchDateStr === selectedDateStr;
+    });
   }
 
   // Group by tournament
@@ -53,7 +55,11 @@ export default function Matches() {
               className={`filter-button ${filter === status ? "active" : ""}`}
               onClick={() => {
                 setFilter(status);
-                setSelectedDate(null);
+                if (status !== "ALL" && status !== "SCHEDULED" && status !== "FINISHED") {
+                  setSelectedDate(null);
+                } else {
+                  setSelectedDate(new Date());
+                }
               }}
             >
               {status}

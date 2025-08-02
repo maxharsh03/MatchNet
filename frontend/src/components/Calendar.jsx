@@ -5,6 +5,12 @@ export default function Calendar({ selectedDate, onDateChange }) {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [currentDate, setCurrentDate] = useState(selectedDate || new Date());
 
+  React.useEffect(() => {
+    if (selectedDate) {
+      setCurrentDate(selectedDate);
+    }
+  }, [selectedDate]);
+
   const formatDate = (date) => {
     return date.toLocaleDateString('en-US', { 
       weekday: 'short', 
