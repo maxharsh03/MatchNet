@@ -16,7 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(player_stats, prefix="/api/player-stats")
-app.include_router(player, prefix="/api/players")
-app.include_router(match, prefix="/api/matches")
-app.include_router(insight, prefix="/api/insights")
+app.include_router(player_stats, prefix="/player-stats")
+app.include_router(player, prefix="/players")
+app.include_router(match, prefix="/matches")
+app.include_router(insight, prefix="/insights")
