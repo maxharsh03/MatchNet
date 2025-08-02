@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from pathlib import Path
 import os
 
-OUTPUT_DIR = "/Users/maxharsh/Desktop/Coding Projects/MatchNet/scraping/output"
 
 def scrape_day_matches(page, status, date):
     matches = []

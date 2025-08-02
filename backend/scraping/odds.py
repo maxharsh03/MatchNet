@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from pathlib import Path
 import os
 
-OUTPUT_DIR = "/Users/maxharsh/Desktop/Coding Projects/MatchNet/scraping/output"
 
 async def get_today_matches(playwright):
     browser = await playwright.chromium.launch(headless=True)

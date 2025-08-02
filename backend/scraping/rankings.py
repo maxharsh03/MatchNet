@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 from pathlib import Path
 import os
 
-OUTPUT_DIR = "/Users/maxharsh/Desktop/Coding Projects/MatchNet/scraping/output"
 
 def get_atp_rankings():
     ranking_data = []
