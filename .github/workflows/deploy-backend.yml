@@ -1,0 +1,78 @@
+name: Deploy backend to EC2
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Archive backend folder
+        run: |
+          tar -czf backend.tar.gz -C backend .
+
+      - name: Copy to EC2 and extract
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: backend.tar.gz
+          target: /home/ubuntu/
+
+      - name: SSH to EC2 and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -e
+            # Remove old backend directory and extract new code
+            rm -rf ~/backend
+            mkdir -p ~/backend
+            tar -xzf ~/backend.tar.gz -C ~/backend
+
+            # Inject .env from GitHub Secrets
+            cat <<EOF > ~/backend/.env
+            ATP_RANKINGS_CSV=${{ secrets.ATP_RANKINGS_CSV }}
+            ELO_AND_STATS_CSV=${{ secrets.ELO_AND_STATS_CSV }}
+            ELO_AND_STATS_PATH=${{ secrets.ELO_AND_STATS_PATH }}
+            MATCHES_CSV=${{ secrets.MATCHES_CSV }}
+            MERGE_DATA_PATH=${{ secrets.MERGE_DATA_PATH }}
+            MODEL_PATH=${{ secrets.MODEL_PATH }}
+            MONGO_URI=${{ secrets.MONGO_URI }}
+            ODDS_CSV=${{ secrets.ODDS_CSV }}
+
+            ODDS_PATH=${{ secrets.ODDS_PATH }}
+            PIPELINE_PATH=${{ secrets.PIPELINE_PATH }}
+            PLAYERS_CSV=${{ secrets.PLAYERS_CSV }}
+            PLAYER_STATS_CSV=${{ secrets.PLAYER_STATS_CSV }}
+            RANKINGS_PATH=${{ secrets.RANKINGS_PATH }}
+            SCALER_PATH=${{ secrets.SCALER_PATH }}
+            SCRAPING_OUTPUT_DIR=${{ secrets.SCRAPING_OUTPUT_DIR }}
+            SCRIPTS_OUTPUT_DIR=${{ secrets.SCRIPTS_OUTPUT_DIR }}
+            TOURNAMENT_AND_SURFACE_CSV=${{ secrets.TOURNAMENT_AND_SURFACE_CSV }}
+            TOURNAMENT_AND_SURFACE_PATH=${{ secrets.TOURNAMENT_AND_SURFACE_PATH }}
+            EOF
+
+            # Stop and remove old Docker container if exists
+            docker stop matchnet-app || true
+            docker rm matchnet-app || true
+
+            # Build new Docker image
+            docker build -t matchnet-api ~/backend
+
+            # Restart Nginx service
+            sudo systemctl restart nginx
+
+            # Run Docker container
+            docker run -d --name matchnet-app -p 8000:8000 matchnet-api
