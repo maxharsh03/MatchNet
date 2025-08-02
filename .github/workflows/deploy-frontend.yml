@@ -21,6 +21,12 @@ jobs:
         with:
           node-version: '18' # or whatever your project requires
 
+      - name: List frontend directory contents
+        run: ls -la frontend
+
+      - name: Show package-lock.json head
+        run: head -20 frontend/package-lock.json
+
       - name: Clear NPM cache
         run: npm cache clean --force
 
