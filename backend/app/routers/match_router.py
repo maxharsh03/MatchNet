@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from db.mongodb import db
-from models.match import Match
+from app.db.mongodb import db
+from app.models.match import Match
 from bson import ObjectId
 
 # Match Router

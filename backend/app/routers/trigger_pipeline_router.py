@@ -1,28 +1,27 @@
-from fastapi import APIRouter
-from db.mongodb import db
+import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
+from app.db.mongodb import db
 import subprocess
 import pandas as pd
 import os
 from bson import ObjectId
 import math
 import ast
-import os
-import sys
 from dotenv import load_dotenv
 from pathlib import Path
 from datetime import datetime, timedelta, timezone
 from dateutil import tz
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+import asyncio
 
 from model.prediction import prediction
 from betting.expected_value import compute_ev_and_suggestion_with_bookmaker
 
-pipeline_router = APIRouter()
-
 # Load .env from root (adjust path as needed)
 # Step 1: Dynamically determine the project root directory
-PROJECT_ROOT = Path(__file__).resolve().parents[3]  # Assumes this script is in `backend/scraping/` or similar
+PROJECT_ROOT = Path(__file__).resolve().parents[2]  # Assumes this script is in `backend/scraping/` or similar
 
 # Step 2: Load .env from root
 load_dotenv(dotenv_path=PROJECT_ROOT / ".env")
@@ -53,7 +52,6 @@ def clean_nan_values(stat: dict):
         for k, v in stat.items()
     }
 
-@pipeline_router.post("/")
 async def trigger_pipeline():
     """
     This route is triggered hourly from the frontend.
@@ -330,3 +328,9 @@ async def trigger_pipeline():
 
     except Exception as e:
         return {"error": str(e)}
+
+def main():
+    asyncio.run(trigger_pipeline())
+
+if __name__ == "__main__":
+    main()

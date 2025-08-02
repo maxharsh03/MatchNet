@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from db.mongodb import db
-from models.player import Player
+from app.db.mongodb import db
+from app.models.player import Player
 from bson import ObjectId
 
 # Player Router
