@@ -1,5 +1,5 @@
 // base url for testing locally
-const BASE_URL = "http://localhost:8000/api"; // change to your backend base URL
+const BASE_URL = "https://api.matchnet.uk"; // change to your backend base URL
 
 // 🧠 GET: Player Stats (GET /player-stats)
 export async function getPlayerStats() {
