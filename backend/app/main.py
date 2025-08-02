@@ -4,7 +4,6 @@ from app.routers.player_stats_router import player_stats_router as player_stats
 from app.routers.player_router import player_router as player
 from app.routers.insight_router import insight_router as insight
 from app.routers.match_router import match_router as match
-from app.routers.trigger_pipeline_router import pipeline_router as pipeline
 
 app = FastAPI()
 
