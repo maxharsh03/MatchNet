@@ -19,7 +19,6 @@ import asyncio
 from model.prediction import prediction
 from betting.expected_value import compute_ev_and_suggestion_with_bookmaker
 
-# Load .env from root (adjust path as needed)
 # Step 1: Dynamically determine the project root directory
 PROJECT_ROOT = Path(__file__).resolve().parents[2]  # Assumes this script is in `backend/scraping/` or similar
 
