@@ -29,15 +29,15 @@ jobs:
 
       - name: Clear NPM cache
         run: npm cache clean --force
-
-      - name: Install package lock
-      - run: npm install --package-lock-only
+        working-directory: frontend
 
       - name: Install dependencies
-      - run: npm ci
+        run: npm ci
+        working-directory: frontend
 
       - name: Build frontend
         run: npm run build
+        working-directory: frontend
 
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
