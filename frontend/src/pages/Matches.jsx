@@ -11,21 +11,31 @@ export default function Matches() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
+    
     async function fetchMatches() {
       if (isLoading) return; // Prevent multiple simultaneous requests
       
       setIsLoading(true);
       try {
         const data = await getMatches();
-        setMatches(data);
+        if (isMounted) {
+          setMatches(data);
+        }
       } catch (error) {
         console.error("Error fetching matches:", error);
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     }
     
     fetchMatches();
+    
+    return () => {
+      isMounted = false;
+    };
   }, []); // Only run once on mount
 
   // Filter by match_status
