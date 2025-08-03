@@ -8,37 +8,22 @@ export default function Matches() {
   const [matches, setMatches] = useState([]);
   const [filter, setFilter] = useState("ALL");
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [isLoading, setIsLoading] = useState(false);
-
   const hasFetched = useRef(false);
 
   useEffect(() => {
-    let isMounted = true;
+    if (hasFetched.current) return;
+    hasFetched.current = true;
 
     async function fetchMatches() {
-      if (hasFetched.current) return; // guard
-
-      hasFetched.current = true;
-      setIsLoading(true);
       try {
         const data = await getMatches();
-        if (isMounted) {
-          setMatches(data);
-        }
+        setMatches(data);
       } catch (error) {
         console.error("Error fetching matches:", error);
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
       }
     }
 
     fetchMatches();
-
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
   // Filter by match_status
