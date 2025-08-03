@@ -8,14 +8,25 @@ export default function Matches() {
   const [matches, setMatches] = useState([]);
   const [filter, setFilter] = useState("ALL");
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchMatches() {
-      const data = await getMatches();
-      setMatches(data);
+      if (isLoading) return; // Prevent multiple simultaneous requests
+      
+      setIsLoading(true);
+      try {
+        const data = await getMatches();
+        setMatches(data);
+      } catch (error) {
+        console.error("Error fetching matches:", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
+    
     fetchMatches();
-  }, []);
+  }, []); // Only run once on mount
 
   // Filter by match_status
   let filteredMatches =
@@ -27,11 +38,17 @@ export default function Matches() {
   const showDatePicker = ["ALL", "SCHEDULED", "FINISHED"].includes(filter);
 
   if (showDatePicker && selectedDate) {
-    const selectedDateStr = selectedDate.toISOString().split('T')[0];
+    // Get date in local timezone to avoid UTC offset issues
+    const selectedYear = selectedDate.getFullYear();
+    const selectedMonth = selectedDate.getMonth();
+    const selectedDay = selectedDate.getDate();
+    
     filteredMatches = filteredMatches.filter((m) => {
       if (!m.date) return false;
-      const matchDateStr = new Date(m.date).toISOString().split('T')[0];
-      return matchDateStr === selectedDateStr;
+      const matchDate = new Date(m.date);
+      return matchDate.getFullYear() === selectedYear &&
+             matchDate.getMonth() === selectedMonth &&
+             matchDate.getDate() === selectedDay;
     });
   }
 

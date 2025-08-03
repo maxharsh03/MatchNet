@@ -1,6 +1,8 @@
 import "../styling/Home.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <div className="home-container">
       <div className="hero-section">
@@ -9,8 +11,8 @@ export default function Home() {
           Your source for predictive tennis intelligence for men's ATP tennis matches.
         </p>
         <div className="cta-buttons">
-          <button className="primary-btn">View Predictions</button>
-          <button className="secondary-btn">Explore Data</button>
+          <button className="primary-btn" onClick={() => navigate("/insights")}>View Predictions</button>
+          <button className="secondary-btn" onClick={() => navigate("/player-stats")}>Explore Data</button>
         </div>
       </div>
       

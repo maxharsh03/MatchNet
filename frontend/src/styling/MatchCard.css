@@ -75,14 +75,15 @@
 
 .player-name {
   font-weight: 600;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: rgba(255, 255, 255, 0.9);
   max-width: 100%;
-  text-align: center;
-  justify-self: center;
+  text-align: left;
+  justify-self: start;
+  padding-left: 8px;
 }
 
 .player-score {

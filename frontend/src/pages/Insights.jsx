@@ -21,12 +21,22 @@ export default function Insights() {
   };
 
   const formatDateForComparison = (date) => {
-    return date.toISOString().split('T')[0];
+    // Use local date components to avoid UTC offset issues
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
   // Filter by selected date
   const filteredInsights = selectedDate
-    ? insights.filter((insight) => insight.date === formatDateForComparison(selectedDate))
+    ? insights.filter((insight) => {
+        if (!insight.date) return false;
+        const insightDate = new Date(insight.date);
+        const selectedFormattedDate = formatDateForComparison(selectedDate);
+        const insightFormattedDate = formatDateForComparison(insightDate);
+        return insightFormattedDate === selectedFormattedDate;
+      })
     : insights;
 
   // Group by date for display structure
