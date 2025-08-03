@@ -21,12 +21,6 @@ jobs:
         with:
           node-version: '18' # or whatever your project requires
 
-      - name: List frontend directory contents
-        run: ls -la frontend
-
-      - name: Show package-lock.json head
-        run: head -20 frontend/package-lock.json
-
       - name: Clear NPM cache
         run: npm cache clean --force
         working-directory: frontend
@@ -42,7 +36,7 @@ jobs:
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
-          args: --acl public-read --delete
+          args: public-read --delete
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
