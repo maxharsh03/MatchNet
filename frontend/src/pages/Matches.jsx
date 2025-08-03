@@ -10,12 +10,15 @@ export default function Matches() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
 
+  const hasFetched = useRef(false);
+
   useEffect(() => {
     let isMounted = true;
-    
+
     async function fetchMatches() {
-      if (isLoading) return; // Prevent multiple simultaneous requests
-      
+      if (hasFetched.current) return; // guard
+
+      hasFetched.current = true;
       setIsLoading(true);
       try {
         const data = await getMatches();
@@ -30,13 +33,13 @@ export default function Matches() {
         }
       }
     }
-    
+
     fetchMatches();
-    
+
     return () => {
       isMounted = false;
     };
-  }, []); // Only run once on mount
+  }, []);
 
   // Filter by match_status
   let filteredMatches =
