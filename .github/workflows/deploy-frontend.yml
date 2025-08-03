@@ -30,8 +30,10 @@ jobs:
       - name: Clear NPM cache
         run: npm cache clean --force
 
-      - name: Install dependencies
+      - name: Install package lock
       - run: npm install --package-lock-only
+
+      - name: Install dependencies
       - run: npm ci
 
       - name: Build frontend
